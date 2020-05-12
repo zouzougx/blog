@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+- '10'
+before_install:
+- MESSAGE=$(git log --format=%B -n 1 $TRAVIS_COMMIT)
+- echo $TRAVIS_COMMIT
+- echo ${MESSAGE}
+install:
+- yarn
+test: true
+script:
+- yarn docs:build
+cache: yarn
+after_success:
+- MESSAGE=$(git log --format=%B -n 1 $TRAVIS_COMMIT)
+- cd dist
+- cp index.html 404.html
+- echo GH_TOKEN:$GH_TOKEN
+- sed -i "s/GH_TOKEN:\"$GH_TOKEN\"\,/ /g" umi.js
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: "$GH_TOKEN"
+  on:
+    branch: master
+  repo: zouzougx/zouzougx.github.io
+  target_branch: master
+  local_dir: dist
