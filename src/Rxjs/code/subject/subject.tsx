@@ -6,10 +6,10 @@ const Index: React.FC = () => {
   useEffect(() => {
     const subject = new Subject();
     subject.subscribe({
-      next: value => setHtml('index', `observerA ${value}`),
+      next: value => setHtml('subjectOutput', `observerA ${value}`),
     });
     subject.subscribe({
-      next: value => setHtml('index', `observerB ${value}`),
+      next: value => setHtml('subjectOutput', `observerB ${value}`),
     });
     subject.next(1);
     subject.next(2);
@@ -21,7 +21,7 @@ const Index: React.FC = () => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="subjectOutput" />
     </>
   );
 };

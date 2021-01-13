@@ -7,12 +7,12 @@ const Index: React.FC = () => {
   useEffect(() => {
     const subject = new BehaviorSubject(0);
     subject.subscribe({
-      next: value => setHtml('index', `observerA ${value}`),
+      next: value => setHtml('BehaviorSubjectOutput', `observerA ${value}`),
     });
     subject.next(1);
     subject.next(2);
     subject.subscribe({
-      next: value => setHtml('index', `observerB ${value}`),
+      next: value => setHtml('BehaviorSubjectOutput', `observerB ${value}`),
     });
     subject.next(3);
     // 不提供上面 subject.next()会怎么样？
@@ -21,7 +21,7 @@ const Index: React.FC = () => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="BehaviorSubjectOutput" />
     </>
   );
 };
