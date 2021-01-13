@@ -24,13 +24,13 @@ const Index: React.FC = () => {
       source.pipe(mapTo('GoodBye'), delay(2000)),
       source.pipe(mapTo('World'), delay(3000)),
     );
-    const subscribe = example.subscribe(val => setHtml('index', val));
+    const subscribe = example.subscribe(val => setHtml('delayOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="delayOutput" />
     </>
   );
 };

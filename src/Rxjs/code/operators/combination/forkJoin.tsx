@@ -41,13 +41,13 @@ const Index: React.FC = props => {
       interval(1000).pipe(take(2)),
       myPromise('RESULT'),
     );
-    const subscribe = example.subscribe(val => setHtml('index', val));
+    const subscribe = example.subscribe(val => setHtml('forkJoinOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="forkJoinOutput" />
     </>
   );
 };

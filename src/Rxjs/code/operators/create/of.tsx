@@ -20,13 +20,13 @@ import 'antd/dist/antd.css';
 const Index: React.FC = () => {
   useEffect(() => {
     const source = of('zou', 'guang', 'xia');
-    source.subscribe(value => setHtml('index', value));
+    source.subscribe(value => setHtml('ofOutput', value));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="ofOutput" />
     </>
   );
 };

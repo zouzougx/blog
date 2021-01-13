@@ -29,19 +29,19 @@ const Index: React.FC = props => {
       retryWhen(errors =>
         errors.pipe(
           // 输出错误信息
-          tap(val => setHtml('index', `Value ${val} was too high!`)),
+          tap(val => setHtml('retryWhenOutput', `Value ${val} was too high!`)),
           // 4秒后重试
           delayWhen(val => timer(val * 1000)),
         ),
       ),
     );
-    example.subscribe(val => setHtml('index', val));
+    example.subscribe(val => setHtml('retryWhenOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="retryWhenOutput" />
     </>
   );
 };

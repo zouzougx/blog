@@ -22,7 +22,7 @@ const Index: React.FC = () => {
     sample('first example')
       .toPromise()
       .then(result => {
-        setHtml('index', `From Promise:${result}`);
+        setHtml('toPromiseOutput', `From Promise:${result}`);
       });
 
     // 例2: 转换成基础的promise
@@ -33,19 +33,19 @@ const Index: React.FC = () => {
     //   ]);
     // };
     // example2().then(val => {
-    //   setHtml('index', `Promise.all Result:${val}`);
+    //   setHtml('toPromiseOutput', `Promise.all Result:${val}`);
     // });
     // // 可以直接使用forkJoin，而不是使用toPromise
     // const example3 = forkJoin(
     //   sample('Observable 1'),
     //   sample('Observable 2'),
-    // ).subscribe(val => setHtml('index', val));
+    // ).subscribe(val => setHtml('toPromiseOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="toPromiseOutput" />
     </>
   );
 };

@@ -37,7 +37,7 @@ const Index: React.FC = props => {
       first.pipe(mapTo('FIRST!')),
       second.pipe(mapTo('SECOND!')),
     );
-    const subscription = example.subscribe(val => setHtml('index', val));
+    const subscription = example.subscribe(val => setHtml('mergeOutput', val));
     setTimeout(() => {
       subscription.unsubscribe();
     }, 5000);
@@ -50,7 +50,9 @@ const Index: React.FC = props => {
       map(val => `first${val}`),
       merge(second2.pipe(map(val => `second ${val}`))),
     );
-    const subscription2 = example2.subscribe(val => setHtml('index', val));
+    const subscription2 = example2.subscribe(val =>
+      setHtml('mergeOutput', val),
+    );
     setTimeout(() => {
       subscription2.unsubscribe();
     }, 3000);
@@ -59,7 +61,7 @@ const Index: React.FC = props => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="mergeOutput" />
     </>
   );
 };

@@ -19,13 +19,18 @@ import 'antd/dist/antd.css';
 
 const Index: React.FC = () => {
   useEffect(() => {
-    interval(3000).subscribe(value => setHtml('index', value));
+    const subscription = interval(3000).subscribe(value =>
+      setHtml('intervalOutput', value),
+    );
+    setTimeout(() => {
+      subscription.unsubscribe();
+    }, 6000);
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="intervalOutput" />
     </>
   );
 };

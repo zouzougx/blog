@@ -20,13 +20,13 @@ const Index: React.FC = () => {
     const message = interval(1000);
     const delayForFiveSeconds = () => timer(3000);
     const delayWhenExample = message.pipe(delayWhen(delayForFiveSeconds));
-    delayWhenExample.subscribe(val => console.log(val));
+    delayWhenExample.subscribe(val => setHtml('delayWhenOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="delayWhenOutput" />
     </>
   );
 };

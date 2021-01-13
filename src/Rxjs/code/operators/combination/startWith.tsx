@@ -40,18 +40,18 @@ const Index: React.FC = props => {
         startWith('Rxjs'),
         scan((acc, curr) => `${acc} ${curr}`),
       )
-      .subscribe(val => console.log(val));
+      .subscribe(val => setHtml('startWithOutput', val));
 
     // 例3: 使用做个值进行例1：对数字序列使用startWith
     // const source3 = interval(1000);
     // const example = source3.pipe(startWith(-3, -2, -1));
-    // const subscribe = example.subscribe((val) => console.log(val));
+    // const subscribe = example.subscribe((val) =>setHtml('startWithOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="startWithOutput" />
     </>
   );
 };

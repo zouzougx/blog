@@ -17,7 +17,7 @@ const Index: React.FC = () => {
   useEffect(() => {
     const source = timer(1000);
     const example = source.pipe(
-      tap(() => setHtml('index', '***SIDE EFFECT***')),
+      tap(() => setHtml('shareOutput', '***SIDE EFFECT***')),
       mapTo('***RESULT***'),
     );
     // const subscribeOne = example.subscribe((val) => console.log(val));
@@ -25,15 +25,17 @@ const Index: React.FC = () => {
 
     const sharedExample = example.pipe(share());
     const subscribeThree = sharedExample.subscribe(val =>
-      setHtml('index', val),
+      setHtml('shareOutput', val),
     );
-    const subscribeFour = sharedExample.subscribe(val => setHtml('index', val));
+    const subscribeFour = sharedExample.subscribe(val =>
+      setHtml('shareOutput', val),
+    );
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="shareOutput" />
     </>
   );
 };

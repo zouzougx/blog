@@ -19,13 +19,13 @@ import 'antd/dist/antd.css';
 
 const Index: React.FC = () => {
   useEffect(() => {
-    range(2, 5).subscribe(value => setHtml('index', value));
+    range(2, 5).subscribe(value => setHtml('rangeOutput', value));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="rangeOutput" />
     </>
   );
 };

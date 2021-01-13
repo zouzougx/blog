@@ -20,25 +20,29 @@ const Index: React.FC = () => {
     const subject = new Subject();
     const afterMulticast = observable.pipe(multicast(() => subject));
     // 在底层使用了 `subject.subscribe({...})`:
-    afterMulticast.subscribe(val => setHtml('index', `observerA ${val}`));
-    afterMulticast.subscribe(val => setHtml('index', `observerB ${val}`));
+    afterMulticast.subscribe(val =>
+      setHtml('multicastOutput', `observerA ${val}`),
+    );
+    afterMulticast.subscribe(val =>
+      setHtml('multicastOutput', `observerB ${val}`),
+    );
     // 在底层使用了 `source.subscribe(subject)`:
     afterMulticast.connect();
 
     // 例1： 使用标准的 Subject 进行 multicast
     // const observable2 = interval(1000).pipe(
-    //   tap(() => setHtml('index', 'Side Effect #1')),
+    //   tap(() => setHtml('multicastOutput', 'Side Effect #1')),
     //   // mapTo('Result!'),
     //   take(4),
     // );
     // const multi = observable2.pipe(multicast(() => new Subject()));
-    // multi.subscribe(val => setHtml('index', `observerA ${val}`));
-    // multi.subscribe(val => setHtml('index', `observerB ${val}`));
+    // multi.subscribe(val => setHtml('multicastOutput', `observerA ${val}`));
+    // multi.subscribe(val => setHtml('multicastOutput', `observerB ${val}`));
     // multi.connect();
 
     // 例2： 使用 ReplaySubject 进行多播
     // const example2 = interval(1000).pipe(
-    //   tap(() => setHtml('index', 'Side Effect #1')),
+    //   tap(() => setHtml('multicastOutput', 'Side Effect #1')),
     //   take(8),
     // );
     // const multi1 = example2.pipe(multicast(() => new ReplaySubject(5)));
@@ -51,7 +55,7 @@ const Index: React.FC = () => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="multicastOutput" />
     </>
   );
 };

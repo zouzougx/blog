@@ -32,7 +32,7 @@ const Index: React.FC = props => {
     const a$ = of(1, 2);
     const b$ = of(10);
     const c$ = combineLatest(a$, b$, (a, b) => a + b);
-    c$.subscribe(value => setHtml('index', value));
+    c$.subscribe(value => setHtml('combineLatestOutput', value));
 
     // 例2：
     // const first = timer(3000, 2000);
@@ -43,7 +43,7 @@ const Index: React.FC = props => {
     // );
     // const subscription = example.subscribe((latestValues) => {
     //   const [timerValOne, timerValTwo] = latestValues;
-    //  setHtml('index', `${timerValOne} ${timerValTwo}`);
+    //  setHtml('combineLatestOutput', `${timerValOne} ${timerValTwo}`);
     // });
     // setTimeout(() => {
     //   subscription.unsubscribe();
@@ -53,13 +53,13 @@ const Index: React.FC = props => {
     // const weight = of(70, 72, 76, 79, 75); // (3, 4, 5, 6, 7);
     // const height = of(1.76, 1.77, 1.78);
     // const example2 = combineLatest(weight, height, (w, h) => w + h); // (w, h) => w / (h * h)
-    //  example2.subscribe(x => setHtml('index', 'BMI is ' + x));
+    //  example2.subscribe(x => setHtml('combineLatestOutput', 'BMI is ' + x));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="combineLatestOutput" />
     </>
   );
 };

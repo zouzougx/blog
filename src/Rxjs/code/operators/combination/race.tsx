@@ -34,7 +34,7 @@ const Index: React.FC = props => {
     const first = of(1, 2, 3);
     const second = from([4, 5, 6]);
     const example = race(first.pipe(delay(1000)), second).subscribe(val =>
-      setHtml('index', val),
+      setHtml('raceOutput', val),
     );
     // 例2:  使用error进行race
     // const first2 = of('first').pipe(
@@ -52,7 +52,7 @@ const Index: React.FC = props => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="raceOutput" />
     </>
   );
 };

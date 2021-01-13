@@ -28,15 +28,16 @@ const Index: React.FC = props => {
       retry(2),
     );
     example.subscribe({
-      next: val => setHtml('index', val),
-      error: val => setHtml('index', `${val}: Retried 2 times then quit!`),
+      next: val => setHtml('retryOutput', val),
+      error: val =>
+        setHtml('retryOutput', `${val}: Retried 2 times then quit!`),
     });
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="retryOutput" />
     </>
   );
 };

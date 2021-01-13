@@ -17,11 +17,11 @@ import { setHtml } from '../../utils/htmlTool';
 const Index: React.FC = () => {
   useEffect(() => {
     const source = of(1000).pipe(
-      tap(() => setHtml('index', '副作用只会执行1次')),
+      tap(() => setHtml('publishOutput', '副作用只会执行1次')),
       publish(),
     );
-    source.subscribe(val => setHtml('index', `Subscriber One: ${val}`));
-    source.subscribe(val => setHtml('index', `Subscriber Two: ${val}`));
+    source.subscribe(val => setHtml('publishOutput', `Subscriber One: ${val}`));
+    source.subscribe(val => setHtml('publishOutput', `Subscriber Two: ${val}`));
     setTimeout(() => {
       source.connect();
     }, 2000);
@@ -30,7 +30,7 @@ const Index: React.FC = () => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="publishOutput" />
     </>
   );
 };

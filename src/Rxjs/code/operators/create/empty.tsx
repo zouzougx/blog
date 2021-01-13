@@ -20,21 +20,21 @@ import 'antd/dist/antd.css';
 const Index: React.FC = () => {
   useEffect(() => {
     empty().subscribe({
-      next: () => setHtml('index', 'Next!'),
-      complete: () => setHtml('index', 'Complete'),
+      next: () => setHtml('emptyOutput', 'Next!'),
+      complete: () => setHtml('emptyOutput', 'Complete'),
     });
     empty()
       .pipe(startWith(7))
       .subscribe({
-        next: value => setHtml('index', value),
-        complete: () => setHtml('index', 'Complete from  second empty'),
+        next: value => setHtml('emptyOutput', value),
+        complete: () => setHtml('emptyOutput', 'Complete from  second empty'),
       });
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="emptyOutput" />
     </>
   );
 };

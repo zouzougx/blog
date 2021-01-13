@@ -20,7 +20,7 @@ const Index: React.FC = props => {
     // 例1: 捕获observable中的错误
     const source = throwError('This is an error!');
     const example = source.pipe(catchError(val => of(`I caught: ${val}`)));
-    example.subscribe(val => setHtml('index', val));
+    example.subscribe(val => setHtml('catchErrorOutput', val));
     // 例2: 捕获拒绝的promise
     // const myBadPromise = () =>
     //   new Promise((resolve, reject) => reject('Rejected!'));
@@ -33,13 +33,13 @@ const Index: React.FC = props => {
     //     ),
     //   ),
     // );
-    // example.subscribe(val => setHtml('index', val));
+    // example.subscribe(val => setHtml('catchErrorOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="catchErrorOutput" />
     </>
   );
 };

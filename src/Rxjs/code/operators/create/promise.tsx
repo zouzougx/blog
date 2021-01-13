@@ -25,13 +25,13 @@ const Index: React.FC = () => {
       });
     };
     const source = fromPromise(myPromise());
-    source.subscribe((value: any) => setHtml('index', value));
+    source.subscribe((value: any) => setHtml('promiseOutput', value));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="promiseOutput" />
     </>
   );
 };

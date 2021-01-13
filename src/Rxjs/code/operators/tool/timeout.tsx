@@ -29,13 +29,13 @@ const Index: React.FC = () => {
           ),
         ),
       )
-      .subscribe(val => setHtml('index', val));
+      .subscribe(val => setHtml('timeoutOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="timeoutOutput" />
     </>
   );
 };

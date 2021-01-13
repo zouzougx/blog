@@ -22,9 +22,9 @@ const Index: React.FC = () => {
     fromEvent(document.getElementById('fromEvent'), 'click')
       .pipe()
       .subscribe(event => {
-        setHtml('index', event);
+        setHtml('fromEventOutput', event);
         console.log(event);
-        setHtml('index', 'click event');
+        setHtml('fromEventOutput', 'click event');
       });
   }, []);
 
@@ -34,7 +34,7 @@ const Index: React.FC = () => {
         来自事件
       </Button>
       <div>输出:</div>
-      <div id="index" />
+      <div id="fromEventOutput" />
     </>
   );
 };

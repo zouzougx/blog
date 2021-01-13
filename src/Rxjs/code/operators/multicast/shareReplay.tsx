@@ -17,12 +17,12 @@ const Index: React.FC = () => {
   useEffect(() => {
     const routeEnd = new Subject<{ data: any; url: string }>();
     const lastUrl = routeEnd.pipe(
-      tap(() => setHtml('index', 'executed')),
+      tap(() => setHtml('shareReplayOutput', 'executed')),
       pluck('url'),
       shareReplay(1),
     );
-    lastUrl.subscribe(val => setHtml('index', `observerA ${val}`));
-    lastUrl.subscribe(val => setHtml('index', `observerB ${val}`));
+    lastUrl.subscribe(val => setHtml('shareReplayOutput', `observerA ${val}`));
+    lastUrl.subscribe(val => setHtml('shareReplayOutput', `observerB ${val}`));
     routeEnd.next({ data: {}, url: 'my-path' });
     routeEnd.next({ data: {}, url: 'my-path2' });
     lastUrl.subscribe(val => console.log(`ObserverC ${val}`));
@@ -31,7 +31,7 @@ const Index: React.FC = () => {
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="shareReplayOutput" />
     </>
   );
 };

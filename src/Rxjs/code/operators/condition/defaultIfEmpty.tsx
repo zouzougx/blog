@@ -8,18 +8,18 @@ const Index: React.FC = props => {
   useEffect(() => {
     // 例1: 没有值的 Observable.of 的默认值
     const exampleOne = of().pipe(defaultIfEmpty<any>('Observable.of() Empty!'));
-    exampleOne.subscribe(val => setHtml('index', val));
+    exampleOne.subscribe(val => setHtml('defaultIfEmptyOutput', val));
 
     // 例2: Observable.empty 的默认值
     const example = empty().pipe(defaultIfEmpty('Observable.empty()!'));
     // 输出: 'Observable.empty()!'
-    example.subscribe(val => setHtml('index', val));
+    example.subscribe(val => setHtml('defaultIfEmptyOutput', val));
   }, []);
 
   return (
     <>
       <div>输出:</div>
-      <div id="index" />
+      <div id="defaultIfEmptyOutput" />
     </>
   );
 };
