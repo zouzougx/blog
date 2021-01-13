@@ -6,7 +6,7 @@
 
 ### behaviorSubject
 
-``
+`它有一个“当前值”的概念。它保存了发送给消费者的最新值。并且当有新的观察者订阅时，会立即从 BehaviorSubject 那接收到“当前值”`
 
 <code src="../code/subject/BehaviorSubject.tsx"></code>
 
