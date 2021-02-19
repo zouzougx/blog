@@ -9,6 +9,17 @@ return args
 const identity4=<T extends {}>(args:T):T=>{
      return args
 }
+
+const copy = <T>(args: T):T => {
+    if (typeof (args) === 'object') {
+        return JSON.parse(JSON.stringify(args))
+    } else {
+        return args
+    }
+}
+
+let strFromCopy = copy<string>('string from copy')
+ strFromCopy = copy('another string from copy')
 ```
 
 ### 使用
