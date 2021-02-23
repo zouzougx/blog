@@ -4,7 +4,8 @@
 
 ### 介绍
 
-webpack 是 js 应用程序打包工具， 如果要处理其他文件必须使用 loader 或 plugin, 两者的区别简单来说 loader 的功能比较少，plugin 能做的东西更多
+webpack 是 js 应用程序打包工具， 如果要处理其他文件必须使用 loader 或 plugin, 两者的区别简单来说 loader 的功能比较少（将文件转化成 webpack 能够识别的），plugin 能做的东西更多(打包优化,压缩, 定义环境变量)  
+官方文档: https://www.webpackjs.com/concepts/#入口-entry-
 
 ### 初始化
 
@@ -41,7 +42,7 @@ console.log('start learn webpack');
 ```js
 const { resolve } = require('path');
 module.exports = {
-  //1. 入口文件
+  //1. 单个入口文件的简写
   entry: './src/index.js',
   // 2. 输出文件
   output: {
@@ -57,7 +58,78 @@ module.exports = {
 };
 ```
 
-8. `npm run dev` 可以看到 dist 文件夹下生成 bundle.js, bundle.js 是没有被压缩过的文件，是个开发的文件
+4. `npm run dev` 可以看到 dist 文件夹下生成 bundle.js, bundle.js 是没有被压缩过的文件，是个开发的文件
+
+### 1. 入口起点 entry
+
+1.entry 属性的单个入口语法，是下面的简写
+
+```js
+entry: {
+  main: './path/to/my/entry/file.js';
+}
+```
+
+2. 对象语法
+
+```js
+entry: {
+		main: "./src/index.tsx",
+		anotherEntry: "./src/anotherEntry.tsx",
+	},
+```
+
+### 2. 输出 output
+
+1.  最低要求是包含输出文件的文件名(filename) 和 目标输出目录(path)的对象
+2.  如果有多个入口起点的话要使用占位符来确保每个文件具有唯一的名称
+
+```js
+output: {
+		////输出文件的文件名
+		filename: "[name].js", // 使用占位符确保每个文件具有唯一的名称
+		//目标输出路径
+		path: __dirname + "/dist", // __dirname是当前文件夹的绝对路径
+	},
+```
+
+### 3. 模式 mode
+
+告知 webpack 使用相应的内置优化
+
+```js
+//webpack使用相应的内置优化模式
+mode: "development",
+```
+
+1.`development` 会将 process.env.NODE_ENV 的值设置为 development  
+2.`production` 会将 process.env.NODE_ENV 的值设置为 production
+
+### 4. loader
+
+将所有类型的文件转换为 webpack 可以处理的有效模块
+
+1. 三种配置 loader 的方式
+
+   1）配置- module.rules 允许你在 webpack 配置中指定多个 loader
+   最好的方式:可以减少源码中的代码量，并且可以在出错时，更快地调试和定位 loader 中的问题。
+
+   2）内联
+
+   ```js
+   import styles from `style-loader!css-loader?modules!./styles.css`
+
+   ```
+
+   3.CLI
+
+   ```js
+   webpack --module-bind jade-loader --module-bind 'css=style-loader!css-loader'
+   ```
+
+2. loader
+   1）一组链式的 loader 将按照相反的顺序执行, 最后一个 loader 返回 webpack 所预期的 js
+   2)loader 可以使用 options 对象进行配置。
 
 ### 处理 html 文件
 
@@ -78,6 +150,26 @@ plugins: [
 
 4. `yarn dev` 生成 dist/index.html,并且文件中自动引入 bundle.js, 直接在浏览器中打开 index.html, 控制台将看到输出 'start learn webpack'  
    还没有 devsevice, --open 不能用 `"dev": "webpack --open",`
+
+### 5. 插件 plugins
+
+目的:在于解决 loader 无法解决的其他事
+用法：在 webpack.config.js 配置中,向 plugins 属性传入插件实例数组
+
+### 6. manifest
+
+webpack 构建的典型应用程序或站点中，三种主要类型的代码：  
+1）你和团队编写的源码  
+2）源码依赖的任何第三方 library 和 “vendor” 代码  
+3）webpack 的 runtime 和 manifest, 管理所有模块交互
+
+manifest - 用来连接模块化应用程序的所有代码  
+import 和 required 语句会被转换为\_webpack_required 方法，此方法指向模块标识符  
+当编译器(compiler)开始执行、解析和映射应用程序时，它会保留所有模块的详细要点。这个数据集合称为 "Manifest"  
+`manifest 数据的用途`: ?
+
+runtime - 在模块交互时,连接模块所需的加载和解析逻辑
+通过使用 manifest 中的数据，runtime 将能够查询模块标识符，检索出背后对应的模块。
 
 ### 处理 js,jsx,ts, tsx
 
