@@ -42,7 +42,7 @@ console.log('start learn webpack');
 ```js
 const { resolve } = require('path');
 module.exports = {
-  //1. 单个入口文件的简写
+  //1. 工程资源的入口，单个入口文件的简写如下
   entry: './src/index.js',
   // 2. 输出文件
   output: {
@@ -62,7 +62,8 @@ module.exports = {
 
 ### 1. 入口起点 entry
 
-1.entry 属性的单个入口语法，是下面的简写
+1. 默认入口是 src/index.js
+2. entry 属性的单个入口语法，是下面的简写
 
 ```js
 entry: {
@@ -389,6 +390,8 @@ return (
 
 ### 自动刷新
 
+ webpack-dev-server 可以帮我们启一个本地服务，监听工程目录文件的改动，修改源文件再次保存时,动态实时的重新打包并自动刷新浏览器
+
 1. `yarn add webpack-dev-server --dev` 安装 webpack-dev-server
 2. webpack.config.js 中配置
 
@@ -399,6 +402,7 @@ devServer: {
    contentBase: resolve(__dirname, "dist"), //本地服务器所加载的页面路径
    port: 9000, // 默认是8080
    open: true, // 浏览器中打开
+   publicPath: './dist' // 打包之后的资源路径
 },
 ```
 
