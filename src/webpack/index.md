@@ -40,7 +40,8 @@ console.log('start learn webpack');
 7. 新建 webpack.config.js 文件, 添加基本配置
 
 ```js
-const { resolve } = require('path');
+const { resolve } = require('path'); //path 将所有路径转化为绝对路径
+
 module.exports = {
   //1. 工程资源的入口，单个入口文件的简写如下
   entry: './src/index.js',
@@ -143,8 +144,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 plugins: [
 		//处理html文件
 		new HtmlWebpackPlugin({
-			filename: "index.html",
-			template: "src/index.html",
+			filename: "index.html", //被处理文件的路径
+			template: "src/index.html",//在目标文件下的文件名
 		}),
 	],
 ```
@@ -196,11 +197,12 @@ module: {
 				options: {
 					// 配置预制套件
 					presets: [
-						"@babel/preset-env",
-						"@babel/preset-typescript",
-						"@babel/preset-react",
+						"@babel/preset-env",////转化es6的规则
+						"@babel/preset-typescript",// 转化ts的规则
+						"@babel/preset-react",////转化jsx的规则
 					],
 				},
+        cacheDirectory: true, // 缓存编译后的代码
 			},
 		],
 	},
@@ -248,6 +250,7 @@ render(App, document.getElementById('root'));
 
 ### 处理样式文件
 
+css loader 只解决了 css 语法解析的问题，style-loader 解决了样式加载的问题，为我们的样式生成一个 style 标签并插入到页面中 loader 的配置顺序和加载顺序是相反
 `1. 处理 style .css 文件`
 
 1. 新建一个 src/index.css
