@@ -1,7 +1,7 @@
 ## 自定义 loader
 
 视频链接: https://www.bilibili.com/video/BV1cv411C74F?p=2&spm_id_from=pageDriver  
-p12-p16
+P12-P16
 
 ### 自定义 loader
 
