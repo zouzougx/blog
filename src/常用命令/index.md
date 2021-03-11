@@ -26,10 +26,13 @@ npm 源管理器
 ||||
 |:----|:----|:----|
 |安装|npm i nrm -g|
+|查看当前源| npm config get registry |
+|设置源| npm config set registry [源名称]或者 nrm use npm
 |查看所有支持的源|nrm ls|
 |使用指定的 npm 下载源|nrm use [name]|
 |查看 nrm 帮助|nrm help|
 |跳转到指定源的官网 |nrm home [name]|
+|nrm test|测试哪个源更快
 
 ### nvs 命令
 
@@ -64,3 +67,26 @@ sudo vi /etc/hosts 进入 host 文件
 按 i 可以进入 INSEFRT 模式编辑文件内容；  
 按 esc 可以退出编辑模式；  
 按 shift+:可以输入退出 vim 的方式：q 直接退出；输入 wq 保存后退出；输入 wq!保存后强制退出
+
+### npm 命令
+
+13.4.6
+major(主版本号-颠覆性的更改):13, minor(次版本号-添加新功能，做一些修改):4 patch(补丁-奇数是不稳定的，偶数是稳定的):
+
+"jquery": "^1.12.4"  
+“\*” -- 最新版本  
+^ -- 只锁定主版本号  
+~ -- 锁定到次版本号  
+空 -- 锁定到 patch
+
+| 指令                     | 描述                                       |
+| :----------------------- | :----------------------------------------- |
+| npm list                 | 查看包之间的依赖关系                       |
+| npm list                 | grep gulp                                  | 清晰的依赖关系 |
+| npm i --production       | 只装生产环境的包                           |
+| npm view jquery versions | 查看所有 jquery 的所有版本以供我们安装选择 |
+| npm i jquery@2.2.4 -S    | 安装特定版本的 jquery                      |
+| npm i jquery@1 -S        | 安装 1 的最高版本                          |
+| npm outdated             | 查看过期包                                 |
+| npm update               | 锁定主版本号升级到最新                     |
+| npm cache clean --force  | 清除 npm 缓存                              |
