@@ -323,3 +323,164 @@ logger.debug(newQuery);
 -- pm2
 `npm i nodemon -g`
 `nodemon server.js`//改变 node 代码不需要重启
+
+### http
+
+serve.js 文件中
+
+```js
+const http = require('http');
+const server = http.createServer((request, response) => {
+  // 返回<div>hello</div>字符串
+  // response.writeHead(200, {
+  //     'content-type':'application/json' //默认是 text/html
+  // })
+  // response.write('<div>hello</div>')
+
+  //会返回400 bad request
+  // response.writeHead(400, {
+  //     'content-type':'application/json' //默认是 text/html
+  // })
+  // response.write('<div>page not found</div>')
+  //
+  response.writeHead(200, {
+    'content-type': 'application/json,charset:utf-8',
+  });
+  //response.write('{"x":8}')可以直接写在end方法中
+  //如果没有repose.
+  const url = request.url;
+  response.end(`{"x":"${url}"}`);
+});
+server.listen(8080, () => {
+  console.log('localhost:8080');
+});
+```
+
+### 1. get 请求
+
+前端访问不到，后端可以访问重新封装了一个接口，实现了跨域
+
+```js
+const http = require('http');
+const https = require('https');
+const server = http.createServer((request, response) => {
+  https.get(
+    'https://www.xiaomiyoupin.com/mtop/mf/resource/data/list',
+    result => {
+      let data = '';
+      result.on('data', chunk => {
+        data += chunk;
+      });
+      result.on('end', () => {
+        response.writeHead(200, {
+          'content-type': 'application/json,charset:utf-8',
+        });
+        response.write(data);
+        response.end();
+      });
+    },
+  );
+});
+server.listen(8080, () => {
+  console.log('localhost:8080');
+});
+```
+
+### post
+
+Form Ulr Encoded  
+content-type:'x-www-form-urlencoded'  
+insomnia 跨平台的 REST API 客户端，组织运行调试 http 请求和 api  
+下载链接：https://insomnia.rest/download
+
+```js
+const http = require('http');
+const querystring = require('querystring');
+const server = http.createServer((request, response) => {
+  let data = '';
+  request.on('data', chunk => {
+    data += chunk;
+  });
+  request.on('end', () => {
+    response.writeHead(200, {
+      'content-type': 'application/json,charset:utf-8',
+    });
+    //把urlencoded字符串 变成json字符串
+    response.write(JSON.stringify(querystring.parse(data)));
+    response.end();
+  });
+});
+server.listen(8080, () => {
+  console.log('localhost:8080');
+});
+```
+
+`nodemon server.js`  
+在 insomnia 中发送  
+post http://localhost:8080/api/list  
+选择 Form URL Encoded 发送 post 请求会看到 response 就是请求的参数
+
+### 服务器提交攻击
+
+1. `mkdir node-express`
+2. `npm install -g express-generator`
+3. `npm install -g express`
+4. `npm i`
+5. `npm start`可以打开http://localhost:3000/
+6. `npm install log4js -D`
+7. 在 routes/index.js 中添加
+
+```js
+let log4js = require('log4js');
+log4js.configure({
+  appenders: { cheese: { type: 'file', filename: 'cheese.log' } },
+  categories: { default: { appenders: ['cheese'], level: 'error' } },
+});
+let logger = log4js.getLogger();
+logger.level = 'debug';
+router.post('/data', function(req, res, next) {
+  logger.debug(req.body);
+  res.send('ok');
+});
+```
+
+8. scripts 中使用`"start": "nodemon ./bin/www"`
+   在 insomnia 中发送  
+   post http://localhost:3000/data  
+   选择 Form URL Encoded 发送 post 请求会看到 chess.log 中有请求的参数
+9. server.js 中
+
+   ```js
+   const http = require('http');
+   const querystring = require('querystring');
+   const postData = querystring.stringify({
+     province: '上海',
+     city: '上海',
+     district: '闵行',
+     message: '既选择远方 便只顾风雨兼程',
+   });
+   const options = {
+     protocol: 'http:',
+     hostname: 'localhost',
+     port: '3000',
+     method: 'post',
+     path: '/data',
+     headers: {
+       'content-type': 'application/x-www-form-urlencoded',
+       'Content-Length': Buffer.byteLength(postData),
+     },
+   };
+   const server = http.createServer((req, res) => {
+     const request = http.request(options, () => {});
+     request.write(postData);
+     request.end();
+     res.end();
+   });
+   server.listen(8080, () => {
+     console.log('localhost:8080');
+   });
+   ```
+
+   在 insomnia 中发送  
+   post http://localhost:8080/api/list  
+   选择 Form URL Encoded 发送 post 请求,在 node-express 的 chess.log 中有 postData
