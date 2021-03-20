@@ -4,4 +4,6 @@
 
 1. `brew install yarn`
 
-2.
+2. `yarn init -y` 一路回车
+3. `yarn add express -S`
+4. `npm view express version`
