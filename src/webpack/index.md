@@ -144,8 +144,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 plugins: [
 		//处理html文件
 		new HtmlWebpackPlugin({
-			filename: "index.html", //被处理文件的路径
-			template: "src/index.html",//在目标文件下的文件名
+			filename: "index.html", //在目标文件下的文件名
+			template: "src/index.html", //被处理文件的路径
 		}),
 	],
 ```
