@@ -6,6 +6,13 @@
 
 webpack 是 js 应用程序打包工具， 如果要处理其他文件必须使用 loader 或 plugin, 两者的区别简单来说 loader 的功能比较少（将文件转化成 webpack 能够识别的），plugin 能做的东西更多(打包优化,压缩, 定义环境变量)  
 官方文档: https://www.webpackjs.com/concepts/#入口-entry-
+webpack4 - 0 配置打包
+
+### 解决方案归纳
+
+对模块内容进行处理-->loader
+增加一些特殊的功能-->plugin
+项目上的打包简化，可变性配置-->编写相应的操作函数
 
 ### 初始化
 

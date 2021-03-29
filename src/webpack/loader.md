@@ -252,3 +252,28 @@ console.log(new Person('jack'));
 ```
 
 5. `yarn webpack`
+
+### 场景: 对 js 文件或对 css 文件统一处理
+
+1. 版本库升级 $.bind-->$.on
+2. 写好的项目增加移动端适配 px-->rem, 10px-->0.21rem
+
+```js
+module.exports = context => {
+  return context.replace('bind', 'on');
+};
+```
+
+```js
+module: {
+    rules: [{
+      test: /\.js$/,
+      use: [{
+        loader: 'happypack/loader?id=happybabel',
+      },{
+        loader: './myloader.js',
+      }],
+    },
+    ]
+  },
+```

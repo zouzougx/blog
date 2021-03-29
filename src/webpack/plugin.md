@@ -1,7 +1,18 @@
 ### plugin
 
-视频链接: https://www.bilibili.com/video/BV1cv411C74F?p=2&spm_id_from=pageDriver  
-P17-P23
+常用的插件：
+
+1. webpack.DefinePlugin--打包阶段定义全局变量
+   webpack --env 只能在 webpack 配置文件中使用, 不能给到业务代码
+2. webpack.HashedModulesPlugin--保持 module.id 的稳定
+   chunkHash 能保正的是改动业务代码第三方包的 hash 不会改动，当模块改了引入的包的数量,模块的 chunkhash 还是会变
+3. webpack.NoEmitOnErrorPlugin -屏蔽错误
+   webpack 打包遇到错误会终端编译
+4. webpack.providerPlugin--提供全局的 plugin
+5. copy-webpack-plugin --帮助拷贝内容
+   webpack 只会把它处理的资源放到 dist 中
+   视频链接: https://www.bilibili.com/video/BV1cv411C74F?p=2&spm_id_from=pageDriver  
+   P17-P23
 
 complier 和 compilation
 compiler 是 webpack 的主要引擎， 拓展自 tapable 类
@@ -110,7 +121,7 @@ l.start();
 3. 新建 plugins/Plugin1
 
 ```js
-// 在webpack 生命周期中做一些事 会保证前面的生命周期执行完在执行后面的
+// 在webpack 生命周期中做一些事 会保证前面的生命周期执行完，再执行后面的
 class Plugin1 {
   apply(compiler) {
     compiler.hooks.emit.tap('Plugin1', compilation => {
