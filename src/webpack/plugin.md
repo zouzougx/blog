@@ -187,7 +187,9 @@ module.exports = Plugin2;
    打开浏览器 F12， 点击 node 的绿色图标  
    添加 Watch
 
-### 往要输出的资源中添加一个 txt 文件
+### 用例 1
+
+场景: 往要输出的资源中添加一个 txt 文件
 
 1. 新建 plugins/b.txt,c.txt
 
@@ -380,3 +382,61 @@ module.exports = CopyWebPackPlugin;
 ```
 
 6. `yarn webpack`
+
+### 用例 2
+
+场景: 开发的时候文件服务器不能用，只能使用本地的静态资源文件夹  
+../static/WechatLogo.jpeg --> https://epos-tl-dev3.zatech.com/WechatLogo.jpeg
+
+1. src/index.html
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="../static/WechatLogo.jpeg">
+</body>
+</html>
+```
+
+2. myPlugin.js
+
+```js
+const path = require('path');
+const fs = require('fs');
+class myPlugin {
+  apply(compiler) {
+    //done 所有打包已经完成 并且输出成dist目录了
+    compiler.hooks.done.tap('myPlugin', compilation => {
+      let context = compiler.options.context;
+      //获取dist目录
+      const publicPath = path.resolve(context, 'dist');
+      //遍历打包的资源
+      compilation.toJson().assets.forEach(ast => {
+        const filePath = path.resolve(publicPath, ast.name);
+        fs.readFile(filePath, (err, file) => {
+          //替换生成新的conext
+          const newFileContext = file
+            .toString()
+            .replace('../static', 'https://epos-tl-dev3.zatech.com');
+          fs.writeFile(filePath, newFileContext, () => {
+            if (err) {
+            } else {
+              console.log('文件创建成功');
+            }
+          });
+        });
+      });
+    });
+  }
+}
+module.exports = myPlugin;
+```
+
+3. `webpack` 浏览器可以看到 index.html 中的引用路径被替换了
